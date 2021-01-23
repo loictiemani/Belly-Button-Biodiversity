@@ -41,7 +41,13 @@ function buildPlot(sample) {
         x: data.samples[0].otu_ids,
         y: data.samples[0].sample_values,
         mode: "markers"
+        marker: {
+            size: data.samples[0].sample_values,
+            color: data.samples[0].otu_ids          
+        },
+        text: data.sample[0].otu_labels
     }
+    var layout2 =
 })
 
 }
