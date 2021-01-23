@@ -9,8 +9,13 @@ function buildPlot(sample) {
     console.log(sampleValues);
     var  labels = data.samples[0].otu_labels.slice(0,10);
     console.log(labels);
-    
-    
+    //display the top 10 OTUs found in that individual.
+    var otu_top = data.samples[0].otu_ids.slice(0,10).reverse();
+
+    // get the otu id's to the plot
+    var otu_id = otu_top.map(d => "OTU " + d);
+    console.log(`OTU IDS: ${otu_id}`)
+
 })
 
 }
