@@ -5,21 +5,23 @@ function buildPlot(sample) {
         console.log(data)
     var ids = data.samples[0].otu_ids;
     console.log(ids);
-    var sampleValues = data.samples[0].sample_values.slice(0,10).reverse();
+    var sampleValues = data.samples[0].sample_values
     console.log(sampleValues);
-    var  labels = data.samples[0].otu_labels.slice(0,10);
+    var  labels = data.samples[0].otu_labels
     console.log(labels);
     //display the top 10 OTUs found in that individual.
-    var otu_top = data.samples[0].otu_ids.slice(0,10).reverse();
-
+    var otu_top10 = data.samples[0].otu_ids.slice(0,10).reverse();
+    var top10sampleValues = sampleValues.slice(0,10).reverse();
+    var  top10labels = labels.slice(0,10);
+    
     // get the otu id's to the plot
-    var otu_id = otu_top.map(d => "OTU " + d);
+    var otu_id = otu_top10.map(d => "OTU " + d);
     console.log(`OTU IDS: ${otu_id}`)
 
     var trace1 = {
-        x: sampleValues,
+        x: top10sampleValues,
         y: otu_id,
-        text:labels,
+        text:top10labels,
         type: "bar",
         orientation: "h"
     };
@@ -38,14 +40,16 @@ function buildPlot(sample) {
 
     var trace2 ={
 
-        x: data.samples[0].otu_ids,
-        y: data.samples[0].sample_values,
+        x: ids,
+        y: sampleValues,
+        text:labels,
         mode: "markers",
         marker: {
-            size: data.samples[0].sample_values,
-            color: data.samples[0].otu_ids          
+            size: sampleValues,
+            color: ['rgb(0,20,100)','rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+           // colorscale: "Earth"          
         },
-        text: data.samples[0].otu_labels
+        
     }
 
     var data2 =[trace2]
@@ -56,8 +60,8 @@ function buildPlot(sample) {
         height: 600,
         width: 600
 
-    }
-    plotly.newPlot(" bubble", data2, layout2)
+    };
+    Plotly.newPlot("bubble", data2, layout2)
 })
 
 }
