@@ -46,8 +46,8 @@ function buildPlot(sample) {
         mode: "markers",
         marker: {
             size: sampleValues,
-            color: ['rgb(0,20,100)','rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
-           // colorscale: "Earth"          
+            color: ids,
+            colorscale: "Earth"          
         },
         
     }
@@ -58,7 +58,7 @@ function buildPlot(sample) {
         title: "bubble",
         showlegend: true,
         height: 600,
-        width: 600
+        width: 1000
 
     };
     Plotly.newPlot("bubble", data2, layout2)
@@ -81,10 +81,10 @@ function readData(sample){
     
             // Use object.entries to add Each key value pair to the panel
     
-            Object.entries(data).forEach(([key, value]) =>{
+            Object.entries(data.metadata).forEach(([key, value]) =>{
     
             panel.append("h6").text(key,value);
-            //console.log(key, value)
+            console.log(key, value)
     
             // use d3 to append new tags for Each-Value in the MetaData
             })
