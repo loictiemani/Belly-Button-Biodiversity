@@ -2,13 +2,13 @@
 function buildPlot(sample) {
     d3.json("samples.json").then(function(data){ 
 
-        console.log(data)
+        //console.log(data)
     var ids = data.samples[0].otu_ids;
-    console.log(ids);
+    //console.log(ids);
     var sampleValues = data.samples[0].sample_values
-    console.log(sampleValues);
+    //console.log(sampleValues);
     var  labels = data.samples[0].otu_labels
-    console.log(labels);
+    //console.log(labels);
     //display the top 10 OTUs found in that individual.
     var otu_top10 = data.samples[0].otu_ids.slice(0,10).reverse();
     var top10sampleValues = sampleValues.slice(0,10).reverse();
@@ -16,7 +16,7 @@ function buildPlot(sample) {
     
     // get the otu id's to the plot
     var otu_id = otu_top10.map(d => "OTU " + d);
-    console.log(`OTU IDS: ${otu_id}`)
+    //console.log(`OTU IDS: ${otu_id}`)
 
     var trace1 = {
         x: top10sampleValues,
@@ -73,7 +73,8 @@ function readData(sample){
         d3.json("samples.json").then(function(data) {
     
             //console.log(data)
-    
+            resultArray=data.metadata.filter(sampleObj => sampleObj.id==sample);
+            console.log(resultArray)
             
             // use .html("") to clear any existing Data
             var panel = d3.select("#sample-metadata");
@@ -81,10 +82,10 @@ function readData(sample){
     
             // Use object.entries to add Each key value pair to the panel
     
-            Object.entries(data.metadata).forEach(([key, value]) =>{
+            Object.entries(resultArray[0]).forEach(([key, value]) =>{
     
-            panel.append("h6").text(key,value);
-            console.log(key, value)
+            panel.append("h6").text(`${key}: ${value}`);
+            //console.log(key, value)
     
             // use d3 to append new tags for Each-Value in the MetaData
             })
@@ -107,4 +108,31 @@ function readData(sample){
         //})
     //}
     
-    
+function init() {
+    drop_down=d3.select('#selDataset');
+
+    d3.json("samples.json").then((data) => {
+        ids_selection=data.names
+
+        //loop through ids_selection and append option to drop_down
+        ids_selection.forEach((sample)=>
+        {
+            drop_down.append('option').text(sample).property("value", sample)
+        })
+
+        //grab the first sample and build the charts on the page for page load
+        firstSample=ids_selection[0]
+        //buildPlot(firstsample)
+        readData(firstSample)
+    })
+}
+
+function optionChanged (newSample){
+    //build plots
+    buildPlot(newSample)
+    //change meta data on panel
+    readData(newSample)
+}
+
+//call init for page load
+init()
