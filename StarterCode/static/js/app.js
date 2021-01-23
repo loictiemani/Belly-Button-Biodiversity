@@ -16,6 +16,25 @@ function buildPlot(sample) {
     var otu_id = otu_top.map(d => "OTU " + d);
     console.log(`OTU IDS: ${otu_id}`)
 
+    var trace = {
+        x: sampleValues,
+        y: otu_id,
+        text:labels,
+        type: "bar",
+        orientation: "h"
+    };
+    var data = [trace];
+
+    var layout ={
+        title: "Top 10 OTU",
+        barmode: "group",
+        yaxis: {tickmode:"linear"}
+    };
+    Plotly.newPlot("bar", data, layout)   
+    
+    
+
+    //the bubble chart
 })
 
 }
