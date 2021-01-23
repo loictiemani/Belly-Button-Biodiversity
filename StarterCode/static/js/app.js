@@ -16,14 +16,14 @@ function buildPlot(sample) {
     var otu_id = otu_top.map(d => "OTU " + d);
     console.log(`OTU IDS: ${otu_id}`)
 
-    var trace = {
+    var trace1 = {
         x: sampleValues,
         y: otu_id,
         text:labels,
         type: "bar",
         orientation: "h"
     };
-    var data = [trace];
+    var data = [trace1];
 
     var layout ={
         title: "Top 10 OTU",
@@ -35,6 +35,13 @@ function buildPlot(sample) {
     
 
     //the bubble chart
+
+    var trace2 ={
+
+        x: data.samples[0].otu_ids,
+        y: data.samples[0].sample_values,
+        mode: "markers"
+    }
 })
 
 }
