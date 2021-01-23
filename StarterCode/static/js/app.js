@@ -4,11 +4,11 @@ function buildPlot(sample) {
 
         console.log(data)
     var ids = data.samples[0].otu_ids;
-    console.log(ids)
+    console.log(ids);
     var sampleValues = data.samples[0].sample_values.slice(0,10).reverse();
-    console.log(sampleValues)
-    //var  otu_ids =data.sample[0]otu_ids;
-    //var  otu_labels = data.otu_labels;
+    console.log(sampleValues);
+    var  labels = data.samples[0].otu_labels.slice(0,10);
+    console.log(labels);
     
     
 })
