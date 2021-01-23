@@ -1,0 +1,6 @@
+// Bonus 
+
+function buildGauge(wfreq){
+// 
+    
+}
