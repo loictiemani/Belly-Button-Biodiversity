@@ -21,9 +21,20 @@ function readData(sample){
 
         // use d3 to append new tags for Each-Value in the MetaData
         })
-    // Bnus: 
+        // Bonus: 
+        buildGauge(data.WFREQ);
     });
 };
 readData();
+
+function buildCharts(sample) {
+
+    d3.json("samples.json").then(function(data) {
+        const otu_ids =data.otu_ids;
+        
+
+
+    }
+}
 
 
