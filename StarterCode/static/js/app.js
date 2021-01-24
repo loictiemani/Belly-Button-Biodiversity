@@ -67,7 +67,8 @@ function buildPlot(sample) {
     };
     Plotly.newPlot("bubble", data2, layout2)
 })
-
+    // Bonus: build gauge Chart 
+   
 }
 
 function readData(sample){
@@ -93,7 +94,7 @@ function readData(sample){
             // use d3 to append new tags for Each-Value in the MetaData
             });
             // Bonus: build gauge Chart 
-            buildGauge(data.wfreq);
+            
             
         });
     };
@@ -115,6 +116,7 @@ function init() {
         firstSample=ids_selection[0]
         buildPlot(firstSample);
         readData(firstSample);
+        buildGauge(firstSample);
     })
 }
 
@@ -122,6 +124,7 @@ function optionChanged (newSample){
     //Fetch New Data Each time a New sample is selcted
     buildPlot(newSample);
     readData(newSample);
+    buildGauge(newSample);
 }
 
 //call init for page load
