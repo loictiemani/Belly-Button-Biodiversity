@@ -1,18 +1,23 @@
 // Belly Button Biodiversity - Plotly.js
-function buildPlot(sample) {
+function buildPlot(sample) { 
     d3.json("samples.json").then(function(data){ 
-
-    //console.log(data)
-    var ids = data.samples[0].otu_ids;
+   // var sampledata=data.sample.filter(sample => sample.id == filter_otu_id)
+   var samples = data.samples;
+   var resultArray =samples.filter(sampleObj => sampleObj.id==sample);
+   var result = resultArray[0]
+   //console.log(data)
+    
+    //console.log(data) data.samples.filter(sampleobject => sampleobject.id ==sample).otu_ids
+    var ids = result.otu_ids
     //console.log(ids);
-    var sampleValues = data.samples[0].sample_values
+    var sampleValues = result.sample_values
     //console.log(sampleValues);
-    var  labels = data.samples[0].otu_labels
+    var  labels = result.otu_labels;
     //console.log(labels);
     //display the top 10 OTUs found in that individual.
-    var otu_top10 = data.samples[0].otu_ids.slice(0,10).reverse();
+    var otu_top10 = ids.slice(0,10).reverse();
     var top10sampleValues = sampleValues.slice(0,10).reverse();
-    var  top10labels = labels.slice(0,10);
+    var  top10labels = labels.slice(0,10)
     
     // get the otu id's to the plot
     var otu_id = otu_top10.map(d => "OTU " + d);
@@ -51,11 +56,10 @@ function buildPlot(sample) {
         },
         
     }
-
     var data2 =[trace2]
 
     var layout2 = {
-        title: "OTU ID",
+        xaxis:{title: "OTU ID"},
         showlegend: true,
         height: 600,
         width: 1000
@@ -66,7 +70,6 @@ function buildPlot(sample) {
 
 }
 
-buildPlot();
 function readData(sample){
 
     // Use `d3.json` to Fetch the Metadata for a Sample
@@ -74,7 +77,7 @@ function readData(sample){
     
             //console.log(data)
             var resultArray=data.metadata.filter(sampleObj => sampleObj.id==sample);
-            console.log(resultArray)
+            //console.log(resultArray)
 
             // use .html("") to clear any existing Data
             var panel = d3.select("#sample-metadata");
@@ -88,9 +91,10 @@ function readData(sample){
             //console.log(key, value)
     
             // use d3 to append new tags for Each-Value in the MetaData
-            })
-            // Bonus: build guage Chart 
-            buildGauge(data.WFREQ);
+            });
+            // Bonus: build gauge Chart 
+            buildGauge(data.wfreq);
+            
         });
     };
     //readData();
@@ -104,8 +108,8 @@ function init() {
         //loop through ids_selection and append option to drop_down
         ids_selection.forEach((sample)=>
         {
-            drop_down.append('option').text(sample).property("value", sample)
-        })
+            drop_down.append('option').text(sample).property("value", sample);
+        });
 
         //grab the first sample and build the charts on the page for page load
         firstSample=ids_selection[0]
