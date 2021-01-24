@@ -1,5 +1,6 @@
 # Plot.ly Homework - Belly Button Biodiversity
 
+https://loictiems.github.io/Belly-Button-Biodiversity/StarterCode/
 
 
 ![Bacteria by filterforge.com](Images/bacteria.jpg)
